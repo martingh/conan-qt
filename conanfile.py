@@ -453,6 +453,7 @@ class QtConan(ConanFile):
         return None
 
     def build(self):
+        tools.patch(patch_file="extra_patches/qnetconmonitor_win_no_NetworkConnectionFromAdapterGuid.patch")
         args = ["-confirm-license", "-silent", "-nomake examples", "-nomake tests",
                 "-prefix %s" % self.package_folder]
         args.append("-v")

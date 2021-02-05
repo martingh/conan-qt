@@ -1,0 +1,36 @@
+--- qtbase/src/network/kernel/qnetconmonitor_win.cpp	2021-02-05 20:23:39.640533195 +0100
++++ qtbase/src/network/kernel/qnetconmonitor_win.cpp	2021-02-05 20:23:45.768227742 +0100
+@@ -206,33 +206,6 @@
+ 
+ ComPtr<INetworkConnection> QNetworkConnectionEvents::getNetworkConnectionFromAdapterGuid(QUuid guid)
+ {
+-    ComPtr<IEnumNetworkConnections> connections;
+-    auto hr = networkListManager->GetNetworkConnections(connections.GetAddressOf());
+-    if (FAILED(hr)) {
+-        qCWarning(lcNetMon) << "Failed to enumerate network connections:"
+-                            << errorStringFromHResult(hr);
+-        return nullptr;
+-    }
+-    ComPtr<INetworkConnection> connection = nullptr;
+-    do {
+-        hr = connections->Next(1, connection.GetAddressOf(), nullptr);
+-        if (FAILED(hr)) {
+-            qCWarning(lcNetMon) << "Failed to get next network connection in enumeration:"
+-                                << errorStringFromHResult(hr);
+-            break;
+-        }
+-        if (connection) {
+-            GUID adapterId;
+-            hr = connection->GetAdapterId(&adapterId);
+-            if (FAILED(hr)) {
+-                qCWarning(lcNetMon) << "Failed to get adapter ID from network connection:"
+-                                    << errorStringFromHResult(hr);
+-                continue;
+-            }
+-            if (guid == adapterId)
+-                return connection;
+-        }
+-    } while (connection);
+     return nullptr;
+ }
+ 
