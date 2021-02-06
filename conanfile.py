@@ -62,7 +62,7 @@ class QtConan(ConanFile):
         "openssl": [True, False],
         "with_pcre2": [True, False],
         "with_glib": [True, False],
-        # "with_libiconv": [True, False],  # Qt tests failure "invalid conversion from const char** to char**"
+        "with_libiconv": [True, False],  # Qt tests failure "invalid conversion from const char** to char**"
         "with_doubleconversion": [True, False],
         "with_freetype": [True, False],
         "with_fontconfig": [True, False],
@@ -98,7 +98,7 @@ class QtConan(ConanFile):
         "openssl": True,
         "with_pcre2": True,
         "with_glib": True,
-        # "with_libiconv": True,
+        "with_libiconv": False,
         "with_doubleconversion": True,
         "with_freetype": True,
         "with_fontconfig": True,
@@ -516,7 +516,7 @@ class QtConan(ConanFile):
             else:
                 args += ["-openssl-linked"]
 
-        # args.append("--iconv=" + ("gnu" if self.options.with_libiconv else "no"))
+        args.append("--iconv=" + ("gnu" if self.options.with_libiconv else "no"))
 
         args.append("--glib=" + ("yes" if self.options.with_glib else "no"))
         args.append("--pcre=" + ("system" if self.options.with_pcre2 else "qt"))
