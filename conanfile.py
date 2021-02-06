@@ -45,6 +45,7 @@ class QtConan(ConanFile):
 
     generators = "pkg_config"
     name = "qt"
+    version = "5.15.1"
     description = "Qt is a cross-platform framework for graphical user interfaces."
     topics = ("conan", "qt", "ui")
     url = "https://github.com/bincrafters/conan-qt"
@@ -270,7 +271,7 @@ class QtConan(ConanFile):
             if self.options.qtwebengine:
                 self.options.with_fontconfig = True
 
-        #assert self.version == self._submodules['qtbase']['branch']
+        assert self.version == self._submodules['qtbase']['branch']
 
         def _enablemodule(mod):
             if mod != 'qtbase':
